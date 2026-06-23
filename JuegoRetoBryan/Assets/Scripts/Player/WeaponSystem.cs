@@ -59,6 +59,11 @@ public class WeaponSystem : MonoBehaviour
 
     private void Update()
     {
+        // No procesar input fuera de partida (menu / victoria / game over).
+        // El operador comprueba que exista un GameManager activo en la escena.
+        if (GameManager.Instance != null && !GameManager.IsPlaying)
+            return;
+
         // Recarga manual: solo con R, nunca automatica
         if (Input.GetKeyDown(KeyCode.R) && !IsReloading && CurrentAmmo < maxAmmo)
         {

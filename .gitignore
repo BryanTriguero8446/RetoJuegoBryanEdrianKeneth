@@ -36,3 +36,7 @@ Thumbs.db
 # Herramientas locales
 .claude/
 UpgradeLog.htm
+
+# Proyectos Unity ajenos a este reto (no subir)
+/My project/
+/examen_Procesual/

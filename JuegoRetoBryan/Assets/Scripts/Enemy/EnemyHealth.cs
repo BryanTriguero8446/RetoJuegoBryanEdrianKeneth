@@ -14,6 +14,17 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     public event System.Action<float, float> OnHealthChanged;
     public event System.Action               OnDeath;
 
+    /// <summary>
+    /// Evento estatico: se dispara cuando CUALQUIER enemigo muere.
+    /// Permite que ScoreManager y GameManager reaccionen (puntos / condicion
+    /// de victoria) sin mantener referencias directas a cada enemigo.
+    /// </summary>
+    public static event System.Action<EnemyHealth> OnAnyEnemyDeath;
+
+    [Tooltip("Puntos que otorga al jugador al ser derrotado.")]
+    [SerializeField] private int scoreValue = 100;
+    public int ScoreValue => scoreValue;
+
     private bool _isDead;
 
     private void Awake()
@@ -40,6 +51,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
         _isDead = true;
         OnDeath?.Invoke();
+        OnAnyEnemyDeath?.Invoke(this);
 
         Destroy(gameObject, 2f);
     }
