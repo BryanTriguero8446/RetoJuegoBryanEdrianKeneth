@@ -122,6 +122,16 @@ public class WeaponSystem : MonoBehaviour
             rb.velocity   = dir * bulletSpeed;
         }
 
+        // Evita que la bala choque con el propio tirador (cuerpo + arma en la mano).
+        // El arma importada trae sus colliders, que no tienen el tag "Player", asi que
+        // sin esto la bala muere al nacer. Ignoramos la colision con TODOS sus colliders.
+        if (bullet.TryGetComponent<Collider>(out var bulletCol))
+        {
+            foreach (Collider own in GetComponentsInChildren<Collider>())
+                if (own != null)
+                    Physics.IgnoreCollision(bulletCol, own);
+        }
+
         // VFX en el cano
         if (muzzleFlashPrefab != null)
         {

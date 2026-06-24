@@ -82,7 +82,13 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         Time.timeScale = 1f;
+        // Esto recarga la escena
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        // IMPORTANTE: Como el GameManager se destruye y vuelve a nacer,
+        // necesitamos decirle que empiece a jugar una vez cargada la escena.
+        // Una forma rápida es llamar a StartGame() después de un breve delay:
+        Invoke("StartGame", 0.1f);
     }
 
     /// <summary>Vuelve al menu principal recargando la escena en estado menu.</summary>

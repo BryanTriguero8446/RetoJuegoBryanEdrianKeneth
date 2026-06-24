@@ -93,6 +93,12 @@ public class EnemyAI : MonoBehaviour
             return;
         }
 
+        // Si el agente todavia no esta sobre el NavMesh (no horneado o el enemigo
+        // quedo fuera de la zona caminable), no intentamos moverlo: evita el error
+        // "Stop can only be called on an active agent placed on a NavMesh".
+        if (_agent == null || !_agent.isOnNavMesh)
+            return;
+
         float distance = Vector3.Distance(transform.position, _target.position);
         UpdateState(distance);
 

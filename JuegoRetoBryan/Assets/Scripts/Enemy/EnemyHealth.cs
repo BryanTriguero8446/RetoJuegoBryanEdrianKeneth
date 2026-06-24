@@ -6,7 +6,8 @@ using UnityEngine;
 /// </summary>
 public class EnemyHealth : MonoBehaviour, IDamageable
 {
-    [SerializeField] private float maxHealth = 50f;
+    // 75 de vida / 25 de dano por bala = muere con 3 disparos.
+    [SerializeField] private float maxHealth = 75f;
 
     public float CurrentHealth { get; private set; }
     public float MaxHealth     => maxHealth;
